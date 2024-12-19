@@ -69,9 +69,14 @@ class PatientResource extends Resource
             Tables\Columns\TextColumn::make('owner.name')
                 ->searchable(),
         ])
-            ->filters([
-                //
-            ])
+        ->filters([
+            Tables\Filters\SelectFilter::make('type')
+                ->options([
+                    'cat' => 'Cat',
+                    'dog' => 'Dog',
+                    'rabbit' => 'Rabbit',
+                ]),
+        ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -85,7 +90,7 @@ class PatientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\TreatmentsRelationManager::class,
         ];
     }
 
